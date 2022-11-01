@@ -70,3 +70,24 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
+
+
+    ####################################################################################################################
+    # GENERATE a test coverage badge ###################################################################################
+    ####################################################################################################################
+    - name: Generate JaCoCo Badge
+#      if: ${{ github.ref == 'refs/heads/master' }}
+      uses: cicirello/jacoco-badge-generator@v2
+      with:
+        jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
+        badges-directory: build/reports/jacoco/test/html/badges
+
+
+    ####################################################################################################################
+    # Publish the coverage report along with badges to github pages ####################################################
+    ####################################################################################################################
+     - name: Publish coverage report to GitHub Pages
+#      if: ${{ github.ref == 'refs/heads/master' }}
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: build/reports/jacoco/test/html
